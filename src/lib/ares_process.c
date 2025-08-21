@@ -877,8 +877,10 @@ static ares_status_t process_answer(ares_channel_t      *channel,
         break;
     }
 
-    printf("%u %u\r\n", (unsigned)(ares_dns_record_get_rcode(rdnsrec)),
-           (unsigned)ares_dns_record_rr_cnt(rdnsrec, ARES_SECTION_ANSWER));
+    printf("%u %u %u\r\n", (unsigned)(ares_dns_record_get_rcode(rdnsrec)),
+           (unsigned)ares_dns_record_rr_cnt(rdnsrec, ARES_SECTION_ANSWER),
+           (unsigned)(ares_dns_rr_get_type(ares_dns_record_rr_get_const(
+             rdnsrec, ARES_SECTION_ANSWER, 0))));
 
     if (status != ARES_SUCCESS) {
       server_increment_failures(server, query->using_tcp);
