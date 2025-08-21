@@ -871,6 +871,9 @@ static ares_status_t process_answer(ares_channel_t      *channel,
         status = ARES_EREFUSED;
         break;
       default:
+        if (ares_dns_record_rr_cnt(rdnsrec, ARES_SECTION_ANSWER) == 0) {
+          status = ARES_ENODATA;
+        }
         break;
     }
 
