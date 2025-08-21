@@ -877,6 +877,9 @@ static ares_status_t process_answer(ares_channel_t      *channel,
         break;
     }
 
+    printf("%u %u\r\n", (unsigned)(ares_dns_record_get_rcode(rdnsrec)),
+           (unsigned)ares_dns_record_rr_cnt(rdnsrec, ARES_SECTION_ANSWER));
+
     if (status != ARES_SUCCESS) {
       server_increment_failures(server, query->using_tcp);
       status = ares_requeue_query(query, now, status, ARES_TRUE, rdnsrec, requeue);
